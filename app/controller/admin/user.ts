@@ -5,7 +5,7 @@ export default class UserController extends Controller {
 
   public async index() {
     const { ctx } = this;
-    const data = await ctx.service.user.index(ctx.type);
+    const data = await ctx.service.user.index(ctx.query);
     ctx.success(data);
   }
 

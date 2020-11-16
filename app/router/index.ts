@@ -1,7 +1,7 @@
 import { Application } from 'egg';
 
-import userRouter from './user';
+import UserRouter from './user';
 
 export default (app: Application) => {
-  userRouter.use(app);
+  UserRouter.use(app);
 };

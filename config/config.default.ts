@@ -8,7 +8,7 @@ export default (appInfo: EggAppInfo) => {
   config.keys = appInfo.name + '_1605149545804_794';
 
   // add your egg config in here
-  config.middleware = [ 'errHandle', 'auth' ];
+  config.middleware = [ 'errHandle', 'auth', 'intercept' ];
 
   config.validate = {
     // convert: false,

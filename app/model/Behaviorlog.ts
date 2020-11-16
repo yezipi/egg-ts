@@ -7,6 +7,7 @@ export default (app: Application) => {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     user_id: INTEGER,
     ip: STRING,
+    description: STRING,
     address: STRING,
     lat: INTEGER,
     lng: INTEGER,
