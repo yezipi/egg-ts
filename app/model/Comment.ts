@@ -1,8 +1,9 @@
 import { Application } from 'egg';
 
+// 评论表
 export default (app: Application) => {
   const { STRING, INTEGER, DATE, TEXT, BOOLEAN } = app.Sequelize;
-  const Comment = app.model.define('comments', {
+  const Comment: any = app.model.define('zzc_comment', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     article_id: INTEGER,
     nickname: STRING(10),
@@ -32,6 +33,15 @@ export default (app: Application) => {
   },
   { initialAutoIncrement: '10000' },
   );
+
+  // 关联文章表
+  Comment.associate = () => {
+    Comment.belongsTo(app.model.Article, { foreignKey: 'article_id', as: 'articles' });
+    Comment.belongsTo(app.model.Mood, { foreignKey: 'article_id', as: 'moods' });
+    Comment.belongsTo(app.model.Album, { foreignKey: 'article_id', as: 'albums' });
+  };
+
+  Comment.sync();
 
   return Comment;
 };

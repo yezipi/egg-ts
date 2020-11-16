@@ -1,21 +1,23 @@
 import { Application } from 'egg';
 
+// 文章表
 export default (app: Application) => {
   const { STRING, INTEGER, TEXT, BOOLEAN } = app.Sequelize;
-  const Article = app.model.define('articles', {
+  const Article: any = app.model.define('zzc_article', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     title: STRING(50),
     type: {
       type: STRING(30),
       defaultValue: 'article',
     },
-    sub_column_id: INTEGER,
-    cover_big: STRING(50),
-    cover_small: STRING(50),
+    column_id: INTEGER,
+    class_id: INTEGER,
+    cover_origin: STRING(50),
+    cover_thumb: STRING(50),
     keywords: STRING(100),
     description: STRING(200),
     content: TEXT,
-    author_id: STRING(32),
+    user_id: INTEGER,
     author_name: STRING(10),
     hit: {
       type: INTEGER,
@@ -33,7 +35,7 @@ export default (app: Application) => {
       type: BOOLEAN,
       defaultValue: false,
     },
-    is_run_code: {
+    is_runcode: {
       type: BOOLEAN,
       defaultValue: false,
     },
@@ -55,6 +57,16 @@ export default (app: Application) => {
   },
   { initialAutoIncrement: '10000' },
   );
+
+  // 表关联
+  Article.associate = () => {
+    Article.hasMany(app.model.Comment, { foreignKey: 'article_id', as: 'comments' });
+    Article.belongsTo(app.model.Classification, { foreignKey: 'class_id', as: 'classifications' });
+    Article.belongsTo(app.model.Column, { foreignKey: 'column_id', as: 'columns' });
+    Article.belongsTo(app.model.User, { foreignKey: 'user_id', as: 'users' });
+  };
+
+  Article.sync();
 
   return Article;
 };

@@ -1,8 +1,9 @@
 import { Application } from 'egg';
 
-export default async (app: Application) => {
+// 栏目表
+export default (app: Application) => {
   const { STRING, INTEGER, BOOLEAN, TEXT } = app.Sequelize;
-  const Column = app.model.define('columns', {
+  const Column: any = app.model.define('zzc_column', {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     name: STRING(30),
     alias: STRING(30),
@@ -27,6 +28,12 @@ export default async (app: Application) => {
   },
   { initialAutoIncrement: '10000' },
   );
+
+  // 关联分类表
+  Column.associate = function() {
+    Column.hasMany(app.model.Classification, { foreignKey: 'column_id', as: 'classifications' });
+    Column.hasMany(app.model.Article, { foreignKey: 'column_id', as: 'articles' });
+  };
 
   const cloumnDefaultData = [
     { name: '文章', url: 'article', sort: 7 },
