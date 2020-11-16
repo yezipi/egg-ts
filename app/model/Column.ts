@@ -40,7 +40,7 @@ export default async (app: Application) => {
 
   Column.sync().then(() => {
     // 先查出所有的数据, 遍历，没有的就插入
-    Column.findAll({ attributes: [ 'url' ] }).then((data: any)=> {
+    Column.findAll({ attributes: [ 'url' ] }).then((data: any) => {
       const urls = data.map((e: any) => e.url);
       cloumnDefaultData.forEach((e: any) => {
         if (urls.indexOf(e.url) < 0) {
