@@ -54,31 +54,26 @@ export default class User extends Service {
     };
   }
 
-  public async info() {
-    return { a: 11, b: 22 };
+  public async info(params: { id: string }) {
+    return await this.ctx.model.User.findOne(params);
   }
 
-  public async update() {
-    return { a: 11, b: 22 };
+  public async update(params: any) {
+    return await this.ctx.model.User.update(params);
   }
 
-  public async create() {
-    const params = {
-      name: 'test2',
-      role: 'test',
-      password: '123456',
-    };
+  public async create(params: any) {
     const isFindOne = await this.ctx.model.User.findOne({ where: { name: params.name } });
     if (isFindOne) {
-      return {
+      throw {
         msg: '已经存在哦',
       };
     }
     return await this.ctx.model.User.create(params);
   }
 
-  public async destroy() {
-    return { a: 11, b: 22 };
+  public async destroy(params: { id: string }) {
+    return await this.ctx.model.User.destroy({ where: { id: params.id } });
   }
 
 }

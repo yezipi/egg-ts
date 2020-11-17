@@ -66,7 +66,7 @@ export default (app: Application) => {
     Article.belongsTo(app.model.User, { foreignKey: 'user_id', as: 'users' });
   };
 
-  Article.sync();
+  // Article.sync();
 
   return Article;
 };

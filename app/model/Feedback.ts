@@ -33,7 +33,7 @@ export default (app: Application) => {
   { initialAutoIncrement: '10000' },
   );
 
-  Feedback.sync();
+  // Feedback.sync();
 
   return Feedback;
 };

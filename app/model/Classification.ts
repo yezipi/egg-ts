@@ -36,7 +36,7 @@ export default (app: Application) => {
     Classification.hasMany(app.model.Article, { foreignKey: 'article', as: 'articles' });
   };
 
-  Classification.sync();
+  // Classification.sync();
 
   return Classification;
 };

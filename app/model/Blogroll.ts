@@ -32,7 +32,7 @@ export default (app: Application) => {
     Blogroll.belongsTo(app.model.Column, { foreignKey: 'column_id', as: 'columns' });
   };
 
-  Blogroll.sync();
+  // Blogroll.sync();
 
   return Blogroll;
 };

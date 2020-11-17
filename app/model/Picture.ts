@@ -31,7 +31,7 @@ export default (app: Application) => {
     Picture.belongsTo(app.model.Album, { foreignKey: 'album_id', as: 'albums' });
   };
 
-  Picture.sync();
+  // Picture.sync();
 
   return Picture;
 };

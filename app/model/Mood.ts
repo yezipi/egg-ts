@@ -33,7 +33,7 @@ export default (app: Application) => {
     Mood.belongsTo(app.model.User, { foreignKey: 'user_id', as: 'users' });
   };
 
-  Mood.sync();
+  // Mood.sync();
 
   return Mood;
 };

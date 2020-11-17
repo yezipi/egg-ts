@@ -22,7 +22,7 @@ export default (app: Application) => {
     Behaviorlog.belongsTo(app.model.User, { foreignKey: 'user_id', as: 'users' });
   };
 
-  Behaviorlog.sync();
+  // Behaviorlog.sync();
 
   return Behaviorlog;
 };

@@ -37,7 +37,7 @@ export default (app: Application) => {
   { initialAutoIncrement: '10000' },
   );
 
-  Mailsetting.sync();
+  // Mailsetting.sync();
 
   return Mailsetting;
 };

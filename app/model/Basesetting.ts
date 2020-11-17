@@ -84,7 +84,7 @@ export default (app: Application) => {
   { initialAutoIncrement: '10000' },
   );
 
-  Basesetting.sync();
+  // Basesetting.sync();
 
   return Basesetting;
 };

@@ -27,7 +27,7 @@ export default (app: Application) => {
   { initialAutoIncrement: '10000' },
   );
 
-  Customsetting.sync();
+  // Customsetting.sync();
 
   return Customsetting;
 };

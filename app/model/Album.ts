@@ -38,7 +38,7 @@ export default (app: Application) => {
     Album.belongsTo(app.model.User, { foreignKey: 'user_id', as: 'users' });
   };
 
-  Album.sync();
+  // Album.sync();
 
   return Album;
 };

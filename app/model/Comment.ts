@@ -41,7 +41,7 @@ export default (app: Application) => {
     Comment.belongsTo(app.model.Album, { foreignKey: 'article_id', as: 'albums' });
   };
 
-  Comment.sync();
+  // Comment.sync();
 
   return Comment;
 };

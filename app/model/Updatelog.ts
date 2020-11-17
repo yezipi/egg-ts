@@ -11,7 +11,7 @@ export default (app: Application) => {
   { initialAutoIncrement: '10000' },
   );
 
-  Updatelog.sync();
+  // Updatelog.sync();
 
   return Updatelog;
 };

@@ -35,33 +35,33 @@ export default (app: Application) => {
     Column.hasMany(app.model.Article, { foreignKey: 'column_id', as: 'articles' });
   };
 
-  const cloumnDefaultData = [
-    { name: '文章', url: 'article', sort: 7 },
-    { name: '案例', url: 'case', sort: 6 },
-    { name: '微语', url: 'mood', sort: 5 },
-    { name: '相册', url: 'album', sort: 4 },
-    { name: '友链', url: 'blogroll', sort: 3 },
-    { name: '留言', url: 'feedback', sort: 2 },
-    { name: '关于', url: 'about', sort: 1 },
-  ];
+  // const cloumnDefaultData = [
+  //   { name: '文章', url: 'article', sort: 7 },
+  //   { name: '案例', url: 'case', sort: 6 },
+  //   { name: '微语', url: 'mood', sort: 5 },
+  //   { name: '相册', url: 'album', sort: 4 },
+  //   { name: '友链', url: 'blogroll', sort: 3 },
+  //   { name: '留言', url: 'feedback', sort: 2 },
+  //   { name: '关于', url: 'about', sort: 1 },
+  // ];
 
-  Column.sync().then(() => {
-    // 先查出所有的数据, 遍历，没有的就插入
-    Column.findAll({ attributes: [ 'url' ] }).then((data: any) => {
-      const urls = data.map((e: any) => e.url);
-      cloumnDefaultData.forEach((e: any) => {
-        if (urls.indexOf(e.url) < 0) {
-          Column.create({
-            name: e.name,
-            url: e.url,
-            type: e.url,
-            alias: e.name,
-            content: e.name,
-          });
-        }
-      });
-    });
-  });
+  // Column.sync().then(() => {
+  //   // 先查出所有的数据, 遍历，没有的就插入
+  //   Column.findAll({ attributes: [ 'url' ] }).then((data: any) => {
+  //     const urls = data.map((e: any) => e.url);
+  //     cloumnDefaultData.forEach((e: any) => {
+  //       if (urls.indexOf(e.url) < 0) {
+  //         Column.create({
+  //           name: e.name,
+  //           url: e.url,
+  //           type: e.url,
+  //           alias: e.name,
+  //           content: e.name,
+  //         });
+  //       }
+  //     });
+  //   });
+  // });
 
   return Column;
 };

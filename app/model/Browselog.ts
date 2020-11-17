@@ -22,7 +22,7 @@ export default (app: Application) => {
   { initialAutoIncrement: '10000' },
   );
 
-  Browselog.sync();
+  // Browselog.sync();
 
   return Browselog;
 };
