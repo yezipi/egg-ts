@@ -5,7 +5,7 @@ import jwt = require('jsonwebtoken');
 export default class User extends Service {
 
   /**
-   * @name 用户列表
+   * 用户列表
    * @param { String } params 参数
    * @param { String } params.name 用户名
    * @param { String } params.password 密码
@@ -15,7 +15,7 @@ export default class User extends Service {
   }
 
   /**
-   * @name 用户登录
+   * 用户登录
    * @param { String } params 参数
    * @param { String } params.name 用户名
    * @param { String } params.password 密码
@@ -54,14 +54,39 @@ export default class User extends Service {
     };
   }
 
+  /**
+   * 查询单个用户
+   * @param { String } params 参数
+   * @param { String } params.id 用户id
+   */
   public async info(params: { id: string }) {
-    return await this.ctx.model.User.findOne(params);
+    return await this.ctx.model.User.findOne({ where: params });
   }
 
-  public async update(params: any) {
-    return await this.ctx.model.User.update(params);
+  /**
+   * 更新单个用户
+   * @param { Object } params 路由参数
+   * @param { Object } params.id 用户id
+   * @param { String } body 参数
+   * @param { String } body.name 账号
+   * @param { String } body.nickname 昵称
+   * @param { String } body.password 密码
+   * @param { Number } body.status 状态
+   */
+  public async update(params: any, body: any) {
+    return await this.ctx.model.User.update(body, { where: params });
   }
 
+  /**
+   * 创建用户
+   * @param { String } params 参数
+   * @param { String } params.name 账号
+   * @param { String } params.nickname 昵称
+   * @param { String } params.password 密码
+   * @param { Number } params.status 状态
+   * @param { String } params.role 角色
+   * @param { String } params.avatar 头像
+   */
   public async create(params: any) {
     const isFindOne = await this.ctx.model.User.findOne({ where: { name: params.name } });
     if (isFindOne) {
@@ -72,6 +97,11 @@ export default class User extends Service {
     return await this.ctx.model.User.create(params);
   }
 
+  /**
+   * 删除单个用户
+   * @param { String } params 参数
+   * @param { String } params.id 用户id
+   */
   public async destroy(params: { id: string }) {
     return await this.ctx.model.User.destroy({ where: { id: params.id } });
   }

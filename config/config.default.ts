@@ -22,6 +22,15 @@ export default (appInfo: EggAppInfo) => {
   //   database: 'egg-sequelize-doc-default',
   // };
 
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+    xframe: {
+      enable: false,
+    },
+  };
+
   // add your special config in here
   const bizConfig = {
     sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,

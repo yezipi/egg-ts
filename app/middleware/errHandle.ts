@@ -12,8 +12,8 @@ export default () => {
       if (ctx.status !== 200) {
         ctx.body = {
           code: -1,
-          msg: statusMsg[ctx.status],
           status: ctx.status,
+          msg: statusMsg[ctx.status],
         };
       }
     } catch (err) {
@@ -25,9 +25,9 @@ export default () => {
       }
       ctx.body = {
         code: -1,
-        msg: err.msg || '服务器内部错误',
         status: 500,
-        content: err.errors ? JSON.stringify(err.errors[0]) : errMsg,
+        msg: err.msg || '服务器内部错误',
+        content: err.errors ? JSON.stringify(err.errors) : errMsg,
       };
     }
   };
