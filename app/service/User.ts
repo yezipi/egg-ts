@@ -47,6 +47,7 @@ export default class User extends Service {
     // 记录登录日志
     await this.ctx.model.Behaviorlog.create({
       user_id: dataValues.id,
+      ip: this.ctx.request.ip,
       description: '登录操作',
     });
 
