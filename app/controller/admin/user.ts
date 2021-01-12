@@ -4,26 +4,26 @@ import { Controller } from 'egg';
 export default class UserController extends Controller {
 
   public async index() {
-    const { ctx } = this;
-    const data = await ctx.service.user.index(ctx.query);
+    const { ctx, service } = this;
+    const data = await service.user.index(ctx.query);
     ctx.success(data);
   }
 
   public async info() {
-    const { ctx } = this;
+    const { ctx, service } = this;
     ctx.validate({ id: 'string' }, ctx.params);
-    const data = await ctx.service.user.info(ctx.params);
+    const data = await service.user.info(ctx.params);
     ctx.success(data);
   }
 
   public async update() {
-    const { ctx } = this;
+    const { ctx, service } = this;
     ctx.validate({ id: 'string' }, ctx.params);
-    ctx.body = await ctx.service.user.update(ctx.params, ctx.request.body);
+    ctx.body = await service.user.update(ctx.params, ctx.request.body);
   }
 
   public async create() {
-    const { ctx } = this;
+    const { ctx, service } = this;
     const validParams = {
       name: {
         type: 'string',
@@ -40,11 +40,11 @@ export default class UserController extends Controller {
     };
     console.log(ctx.request.body);
     ctx.validate(validParams, ctx.request.body);
-    ctx.body = await ctx.service.user.create(ctx.request.body);
+    ctx.body = await service.user.create(ctx.request.body);
   }
 
   public async destroy() {
-    const { ctx } = this;
-    ctx.body = await ctx.service.user.destroy(ctx.query);
+    const { ctx, service } = this;
+    ctx.body = await service.user.destroy(ctx.query);
   }
 }
