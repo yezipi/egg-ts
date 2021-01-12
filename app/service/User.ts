@@ -23,11 +23,13 @@ export default class User extends Service {
   public async login(params: object) {
     const { name, password }: any = params;
     const md5Pwd = md5(password);
-    const data: any = await this.ctx.model.User.findOne({
+    const { dataValues } = await this.ctx.model.User.findOne({
       where: { name, password: md5Pwd },
     });
 
-    const { status, role }: any = data;
+    console.log(dataValues);
+
+    const { status, role }: any = dataValues;
 
     if (status !== 1) {
       throw { msg: '账号已被禁用, 无法登录' };
@@ -40,17 +42,17 @@ export default class User extends Service {
       expiresIn: 60 * 60 * 24 * 30, // 1个月过期
     });
 
-    delete data.password;
+    delete dataValues.password;
 
     // 记录登录日志
     await this.ctx.model.Behaviorlog.create({
-      user_id: data.id,
+      user_id: dataValues.id,
       description: '登录操作',
     });
 
     return {
       token,
-      ...data,
+      user: dataValues,
     };
   }
 

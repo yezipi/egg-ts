@@ -29,6 +29,13 @@ export default (appInfo: EggAppInfo) => {
     xframe: {
       enable: false,
     },
+    domainWhiteList: [ 'http://192.168.1.104:8080/' ],
+  };
+
+  // 跨域设置
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
 
   // add your special config in here

@@ -1,14 +1,14 @@
 {
   "development": {
-    "username": "admin",
-    "password": "123456",
+    "username": "root",
+    "password": "qun931120",
     "database": "blog",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
-    "username": "admin",
-    "password": "123456",
+    "username": "root",
+    "password": "qun931120",
     "database": "test",
     "host": "127.0.0.1",
     "dialect": "mysql"

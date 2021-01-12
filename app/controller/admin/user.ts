@@ -38,7 +38,6 @@ export default class UserController extends Controller {
         required: true,
       },
     };
-    console.log(ctx.request.body);
     ctx.validate(validParams, ctx.request.body);
     ctx.body = await service.user.create(ctx.request.body);
   }
@@ -47,4 +46,23 @@ export default class UserController extends Controller {
     const { ctx, service } = this;
     ctx.body = await service.user.destroy(ctx.query);
   }
+
+  public async login() {
+    const { ctx, service } = this;
+    const { body } = ctx.request;
+    const validParams = {
+      name: {
+        type: 'string',
+        required: true,
+      },
+      password: {
+        type: 'string',
+        required: true,
+      },
+    };
+    ctx.validate(validParams, body);
+    const data = await service.user.login(body);
+    ctx.success(data);
+  }
+
 }

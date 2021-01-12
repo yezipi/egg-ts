@@ -18,17 +18,24 @@ export default () => {
       }
     } catch (err) {
       console.log(err);
+
       const stringErr: any = err.toString();
-      let errMsg = stringErr.indexOf('Table') > -1 ? '数据库出错！' : stringErr;
-      if (typeof err === 'object') {
-        errMsg = JSON.stringify(err);
+
+      const errMsg = stringErr.indexOf('Table') > -1 ? '数据库出错！' : stringErr;
+
+      if (Array.isArray(err.errors)) {
+        err.msg = err.errors.map((e: any) => {
+          return e.field + '：' + e.code;
+        }).join();
       }
+
       ctx.body = {
         code: -1,
         status: 500,
-        msg: err.msg || '服务器内部错误',
+        msg: err.msg || errMsg || '服务器内部错误',
         content: err.errors ? JSON.stringify(err.errors) : errMsg,
       };
+
     }
   };
 };
