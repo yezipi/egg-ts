@@ -19,20 +19,22 @@ export default () => {
     } catch (err) {
       console.log(err);
 
-      const stringErr: any = err.toString();
+      const isObject = typeof err === 'object';
 
-      const errMsg = stringErr.indexOf('Table') > -1 ? '数据库出错！' : stringErr;
+      const stringErr: any = isObject ? err : err.toString();
+
+      const errMsg = !isObject && stringErr.indexOf('Table') > -1 ? '数据库出错！' : stringErr;
 
       if (Array.isArray(err.errors)) {
         err.msg = err.errors.map((e: any) => {
-          return e.field + '：' + e.code;
+          return e.field + '：' + e.message;
         }).join();
       }
 
       ctx.body = {
         code: -1,
         status: 500,
-        msg: err.msg || errMsg || '服务器内部错误',
+        msg: err.msg || '服务器内部错误',
         content: err.errors ? JSON.stringify(err.errors) : errMsg,
       };
 

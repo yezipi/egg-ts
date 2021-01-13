@@ -18,8 +18,27 @@ export default class UserController extends Controller {
 
   public async update() {
     const { ctx, service } = this;
-    ctx.validate({ id: 'string' }, ctx.params);
-    ctx.body = await service.user.update(ctx.params, ctx.request.body);
+    const requestParams = {
+      ...ctx.params,
+      ...ctx.request.body,
+    };
+    const validParams = {
+      name: {
+        type: 'string',
+        required: true,
+      },
+      nickname: {
+        type: 'string',
+        required: true,
+      },
+      password: {
+        type: 'string',
+        required: true,
+      },
+    };
+    ctx.validate(validParams, requestParams);
+    const data = await service.user.update(ctx.params, ctx.request.body);
+    ctx.success(data);
   }
 
   public async create() {
@@ -39,12 +58,15 @@ export default class UserController extends Controller {
       },
     };
     ctx.validate(validParams, ctx.request.body);
-    ctx.body = await service.user.create(ctx.request.body);
+    const data = await service.user.create(ctx.request.body);
+    ctx.success(data);
   }
 
   public async destroy() {
     const { ctx, service } = this;
-    ctx.body = await service.user.destroy(ctx.query);
+    ctx.validate({ id: 'string' }, ctx.params);
+    const data = await service.user.destroy(ctx.params);
+    ctx.success(data);
   }
 
   public async login() {

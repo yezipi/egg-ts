@@ -33,7 +33,7 @@ export default (app: Application) => {
   // 关联栏目表
   Classification.associate = () => {
     Classification.belongsTo(app.model.Column, { foreignKey: 'column_id', as: 'columns' });
-    Classification.hasMany(app.model.Article, { foreignKey: 'article', as: 'articles' });
+    Classification.hasMany(app.model.Article, { foreignKey: 'article_id', as: 'articles' });
   };
 
   // Classification.sync();

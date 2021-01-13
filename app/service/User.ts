@@ -77,6 +77,9 @@ export default class User extends Service {
    * @param { Number } body.status 状态
    */
   public async update(params: any, body: any) {
+    const { password }: any = body;
+    const md5Pwd = md5(password);
+    body.password = md5Pwd;
     return await this.ctx.model.User.update(body, { where: params });
   }
 
@@ -91,10 +94,12 @@ export default class User extends Service {
    * @param { String } params.avatar 头像
    */
   public async create(params: any) {
+    const md5Pwd = md5(params.password);
+    params.password = md5Pwd;
     const isFindOne = await this.ctx.model.User.findOne({ where: { name: params.name } });
     if (isFindOne) {
       throw {
-        msg: '已经存在哦',
+        msg: params.name + '账号已经存在哦',
       };
     }
     return await this.ctx.model.User.create(params);
@@ -106,6 +111,13 @@ export default class User extends Service {
    * @param { String } params.id 用户id
    */
   public async destroy(params: { id: string }) {
+    // 超级管理元不允许删除
+    const { dataValues } = await this.ctx.model.User.findOne({
+      where: { id: params.id },
+    });
+    if (dataValues.role === 'super') {
+      throw { msg: '超级管理员不允许删除' };
+    }
     return await this.ctx.model.User.destroy({ where: { id: params.id } });
   }
 
